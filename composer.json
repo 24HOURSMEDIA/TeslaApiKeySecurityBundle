@@ -1,11 +1,11 @@
 {
     "name": "24hoursmedia/tesla-api-key-security-bundle",
-    "description": "security bundle",
+    "description": "SF2 Bundle for verification of API keys in http headers",
     "type": "symfony-bundle",
     "authors": [
         {
             "name": "E.Bachman",
-            "email": "e.bachman@24hoursmedia.com"
+            "email": "eba@24hoursmedia.com"
         }
     ],
     "keywords": [],
