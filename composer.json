@@ -19,5 +19,5 @@
         }
     },
     "target-dir": "Tesla/Bundle/ApiKeySecurityBundle",
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
