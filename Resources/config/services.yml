@@ -1,0 +1,27 @@
+parameters:
+#    tesla_api_key_security.example.class: Tesla\Bundle\ApiKeySecurityBundle\Example
+
+services:
+#    tesla_api_key_security.example:
+#        class: %tesla_api_key_security.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    api_key.memory_api_user_provider:
+        class: Tesla\Bundle\ApiKeySecurityBundle\Security\User\ApiUserProvider
+        arguments:
+            - [%tesla_api_key_in_memory_users%]
+
+    api_key.doctrine_api_user_provider:
+        class: Tesla\Bundle\ApiKeySecurityBundle\Security\User\DoctrineApiUserProvider
+        arguments:
+            - @doctrine.orm.entity_manager
+
+    api_key.security.authentication.provider:
+        class:  Tesla\Bundle\ApiKeySecurityBundle\Security\Authentication\Provider\ApiKeyAuthenticationProvider
+        arguments: ["", %kernel.environment%]
+
+    api_key.security.authentication.listener:
+        class:  Tesla\Bundle\ApiKeySecurityBundle\Security\Firewall\ApiKeyFirewallListener
+        arguments: [@security.context, "@security.authentication.manager", ~, ~]
+        calls:
+            - [ setLogger, [@logger ]]
