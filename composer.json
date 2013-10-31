@@ -1,0 +1,23 @@
+{
+    "name": "24hoursmedia/api-key-security-bundle",
+    "description": "security bundle",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "E.Bachman",
+            "email": "e.bachman@24hoursmedia.com"
+        }
+    ],
+    "keywords": [],
+    "homepage": "http://www.24hoursmedia.com/tesla",
+    "license": [
+        "MIT"
+    ],
+    "autoload": {
+        "psr-0": {
+            "Tesla\\Bundle\\ApiKeySecurityBundle": ""
+        }
+    },
+    "target-dir": "Tesla/Bundle/ApiKeySecurityBundle",
+    "minimum-stability": "stable"
+}
