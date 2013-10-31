@@ -1,5 +1,5 @@
 {
-    "name": "24hoursmedia/api-key-security-bundle",
+    "name": "24hoursmedia/tesla-api-key-security-bundle",
     "description": "security bundle",
     "type": "symfony-bundle",
     "authors": [
