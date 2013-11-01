@@ -25,10 +25,18 @@ class DoctrineApiUserProvider implements ApiUserProviderInterface
      */
     private $om;
 
-    public function __construct(ObjectManager $om)
+    /**
+     * @var \Doctrine\Common\Cache\Cache
+     */
+    private $cache;
+    private $cacheTtl;
+
+    public function __construct(ObjectManager $om, $cache = null, $cacheTtl = 300)
     {
 
         $this->om = $om;
+        $this->cache = $cache;
+        $this->cacheTtl = $cacheTtl;
     }
 
     /**
@@ -38,6 +46,13 @@ class DoctrineApiUserProvider implements ApiUserProviderInterface
      */
     public function loadUserByKey($key)
     {
+        // cache support
+        if ($this->cache) {
+            $cacheKey = sha1('abcwe.' . $key);
+            if ($user = $this->cache->fetch($cacheKey)) {
+                return $user;
+            }
+        }
         $dbUser = $this->om->getRepository('TeslaApiKeySecurityBundle:ApiKey')->findOneByApiKey((string)$key);
         if (!$dbUser) {
             throw new UsernameNotFoundException('API user not found');
@@ -59,6 +74,13 @@ class DoctrineApiUserProvider implements ApiUserProviderInterface
             ->setExpires($dbUser->getExpires())
             ->setEnvironments($dbUser->getEnvironments())
             ->setActive($dbUser->getActive());
+
+        // cache support
+        if ($this->cache) {
+            $cacheKey = sha1('abcwe.' . $key);
+            $this->cache->save($cacheKey, $user, $this->cacheTtl);
+        }
+
         return $user;
     }
 
